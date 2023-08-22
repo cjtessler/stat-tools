@@ -11,6 +11,7 @@ var data = [
   { group: "7", value: 0 },
   { group: "8", value: 0 },
   { group: "9", value: 0 },
+  { group: "10", value: 0 },
 ];
 
 var n = 0;
@@ -21,11 +22,11 @@ function handleSubmit(event) {
   let value;
   if (event.key === "Enter") {
     value = valueInput.value;
+    valueInput.value = "";
   } else if (event.type === "click") {
     value = valueInput.value;
   }
 
-  valueInput.value = "";
 
   console.log(value);
 
@@ -49,6 +50,7 @@ var margin = {top: 30, right: 30, bottom: 70, left: 60};
 var width = 460 - margin.left - margin.right;
 var height = 400 - margin.top - margin.bottom
 
+// Create svg element
 var svg = d3.select('#svg-container')
   .append("svg")
     .attr("width", width + margin.left + margin.right)
@@ -74,6 +76,16 @@ var y = d3.scaleLinear()
 svg.append("g")
   .attr("class", "myYaxis")
   .call(d3.axisLeft(y));
+
+// Add title
+svg.append("text")
+  .attr("text-anchor", "middle")
+  .attr("x", (width / 4))
+  .attr("y", 0 - (margin.top / 2))
+  .attr("dy", "-0.5em") // Fine-tune vertical position
+  .style("font-size", "12px")
+  .style("font-weight", "bold")
+  .text("Pick a random number from 1 to 10")
 
 // A function that create / update the plot for a given variable:
 function update(data) {
